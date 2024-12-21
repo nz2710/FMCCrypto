@@ -1,0 +1,19 @@
+{
+    "name": "jacknguyen/crypto",
+    "description": "package for FMCCrypto",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jacknguyen\\Crypto\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jack Nguyen",
+            "email": "it.hainn274@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
