@@ -3,11 +3,9 @@
     "description": "package for FMCCrypto",
     "type": "library",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Jacknguyen\\Crypto\\": "src/"
-        }
-    },
+    "keywords": [
+		"crypto"
+	],
     "authors": [
         {
             "name": "Jack Nguyen",
@@ -15,5 +13,38 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "prefer-stable":true,
+    "require": {
+        "attestto/solana-php-sdk": "dev-master",
+        "textalk/websocket": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jacknguyen\\Crypto\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jacknguyen\\Crypto\\Tests\\":"tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jacknguyen\\Crypto\\CryptoServiceProvider"
+            ],
+            "aliases": {
+                "Jacknguyen": "Jacknguyen\\Crypto\\CryptoFacade"
+            }
+        }
+    }
 }
