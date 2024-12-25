@@ -2,32 +2,29 @@
 
 namespace Jacknguyen\Crypto;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\Config;
+use JackNguyen\Crypto\Console\Commands\SolanaBlockListener;
 
 class CryptoServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->publishConfig();
-
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'crypto');
-        $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views/vendor'),
-        ]);
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
         $this->registerRoutes();
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                SolanaBlockListener::class,
+            ]);
+        }
     }
 
     public function register()
     {
         // Merge config
         $this->mergeConfigFrom(
-            __DIR__.'/../config/crypto.php', 'crypto'
+            __DIR__.'/../config/solana.php', 'solana'
         );
     }
     private function registerRoutes()
@@ -48,7 +45,7 @@ class CryptoServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/crypto.php' => config_path('crypto.php'),
+                __DIR__ . '/../config/solana.php' => config_path('solana.php'),
             ], 'config');
         }
     }
